@@ -27,20 +27,20 @@ type QuestionProps = {
     }[]) => void;
     playerNumber: number;
     setIsLocked: (isLocked: boolean) => void;
-    setOpenQuestion: (openQuestion: {open: boolean; playerNumber: number}) => void;
+    setOpenDoubtQuestion: (openQuestion: {open: boolean; playerNumber: number}) => void;
 }
 
-export default function Question({ question, players, setPlayers, playerNumber, setIsLocked, setOpenQuestion }: QuestionProps){
+export default function DoubtFaith({ question, players, setPlayers, playerNumber, setIsLocked, setOpenDoubtQuestion }: QuestionProps){
     const [ myTimeout, setMyTimeout ] = useState<NodeJS.Timeout | null>(null);
-    const [ secondsToAnswer, setSecondsToAnswer ] = useState(45);
+    const [ secondsToAnswer, setSecondsToAnswer ] = useState(60);
     const correctAnswer = () => {
         setIsLocked(false);
-        setOpenQuestion({open: false, playerNumber: NaN});
+        setOpenDoubtQuestion({open: false, playerNumber: NaN});
     }
     const wrongAnswer = () => {
         const playersUpdated = players.map((player, index) => {
             if (index === playerNumber){
-                player.position - 2 < 0 ? player.position = 0 : player.position -= 2;
+                player.position - 3 < 0 ? player.position = 0 : player.position -= 3;
                 player.inConfession = false;
                 player.inCommunion = false;
                 player.verified = false;
@@ -49,7 +49,7 @@ export default function Question({ question, players, setPlayers, playerNumber, 
         })
         setPlayers(playersUpdated);
         setIsLocked(false);
-        setOpenQuestion({open: false, playerNumber: NaN});
+        setOpenDoubtQuestion({open: false, playerNumber: NaN});
     }
     useEffect(() => {
         setMyTimeout(setTimeout(() => {
@@ -61,7 +61,7 @@ export default function Question({ question, players, setPlayers, playerNumber, 
         }, 1000))
     }, [secondsToAnswer])
     return (
-        <div style={{width: squareSize.width * (squareSize.columns - 2) - 36, height: squareSize.height * 3, right: squareSize.width + 18, backgroundColor: "#FCDF8A", zIndex: 99, position: "absolute", top: squareSize.height + 18, borderRadius: 50, display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <div style={{width: squareSize.width * (squareSize.columns - 2) - 36, height: squareSize.height * 3, right: squareSize.width + 18, backgroundColor: "#F3583A", zIndex: 99, position: "absolute", top: squareSize.height + 18, borderRadius: 50, display: "flex", flexDirection: "column", alignItems: "center"}}>
             <Image src={headerQuestion} alt="headerQuestion" width={squareSize.width * (squareSize.columns - 2) - 36} />
             <h1 style={{ color: "#000", marginInline: 24}} >{question}</h1>
             <div style={{ display: "flex", gap: 64, marginTop: 32}}>

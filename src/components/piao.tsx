@@ -1,11 +1,13 @@
 import { squares } from "@/config/squares";
 import { useEffect, useState } from "react";
 import styles from './piao.module.css';
+import { useRouter } from "next/navigation";
 type PiaoProps = {
     boardPosition: number;
     color: string;
     pad: number;
     setPlayers: (players: {
+        name: string;
         color: string;
         position: number;
         inConfession: boolean;
@@ -13,6 +15,7 @@ type PiaoProps = {
         verified: boolean;
     }[]) => void;
     players: {
+        name: string;
         color: string;
         position: number;
         inConfession: boolean;
@@ -21,9 +24,14 @@ type PiaoProps = {
     }[];
     playerNumber: number;
     turn: number;
+    isLocked: boolean;
+    setIsLocked: (isLocked: boolean) => void;
+    openQuestionCard: (playerNumber: number) => void;
+    openDoubtFaithCard: (playerNumber: number) => void;
 }
 
-export default function Piao({ boardPosition, color, pad, players, setPlayers, playerNumber, turn }: PiaoProps){
+export default function Piao({ boardPosition, color, pad, players, setPlayers, playerNumber, setIsLocked, openQuestionCard, openDoubtFaithCard }: PiaoProps){
+    const router = useRouter();
     const [isAnimating, setIsAnimating] = useState(false);
     const [position, setPosition] = useState(0);
     const padding = 8;
@@ -92,6 +100,37 @@ export default function Piao({ boardPosition, color, pad, players, setPlayers, p
                 setPlayers(playersUpdated)
                 alert("Você caiu na eucaristia! Caso chegue na tentação, a graça da eucaristia te protegerá")
             }
+            if (effect === "question" && !players[playerNumber].verified){
+                const playersUpdated = players.map((player, index) => {
+                    if (index === playerNumber){
+                        player.position = player.position
+                        player.verified = true;
+                    }
+                    return player;
+                })
+                setPlayers(playersUpdated)
+                setIsLocked(true);
+                console.log("Pergunta")
+                openQuestionCard(playerNumber);
+            }
+            if (effect === "doubtFaith" && !players[playerNumber].verified){
+                const playersUpdated = players.map((player, index) => {
+                    if (index === playerNumber){
+                        player.position = player.position
+                        player.verified = true;
+                    }
+                    return player;
+                })
+                setPlayers(playersUpdated)
+                setIsLocked(true);
+                console.log("Dúvida de fé")
+                openDoubtFaithCard(playerNumber);
+            }
+            if (effect === "endGame"){
+                const sortPlayers = players.sort((a, b) => b.position - a.position);
+                const length = sortPlayers.length;
+                router.push(`/ranking?winner=${sortPlayers[length - 1].name ? sortPlayers[length - 1].name : ""}&second=${sortPlayers[length - 2].name ? sortPlayers[length - 2].name : ""}&third=${sortPlayers[length - 3].name ? sortPlayers[length - 3].name : ""}`)
+            }
             return;
         };
         setIsAnimating(true);
@@ -103,7 +142,7 @@ export default function Piao({ boardPosition, color, pad, players, setPlayers, p
             position < boardPosition ? setPosition(position + 1) : setPosition(position - 1)
         }, 250);
     
-    }, [boardPosition, position, isAnimating, players, setPlayers, playerNumber])
+    }, [boardPosition, position, isAnimating, players, setPlayers, playerNumber, setIsLocked, openQuestionCard])
     return (
         <div style={{position: 'absolute', zIndex: 99, top: squares[position].y - padding, right: squares[position].x + padding + pad}} className={`${styles.animation}`}>
             <svg width="27" height="49" viewBox="0 0 27 49" fill="none" xmlns="http://www.w3.org/2000/svg">

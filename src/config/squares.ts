@@ -10,7 +10,9 @@ import temptationSquare from "../assets/temptationSquare.svg"
 
 const squareSize = {
     width: 100,
-    height: 100
+    height: 100,
+    columns: 10,
+    rows: 7
 }
 const squares = [
     {
@@ -58,8 +60,8 @@ const squares = [
     {
         x: squareSize.width * 7,
         y: 0,
-        image: questionSquare,
-        effect: "question"
+        image: doubtFaith,
+        effect: "doubtFaith"
     },
     {
         x: squareSize.width * 8,
@@ -178,21 +180,25 @@ const squares = [
         x: squareSize.width * 0,
         y: squareSize.height * 3,
         image: questionSquare,
+        effect: "question"
     },
     {
         x: squareSize.width * 0,
         y: squareSize.height * 2,
         image: heresySquare,
+        effect: "heresy"
     },
     {
         x: squareSize.width * 0,
         y: squareSize.height * 1,
         image: commonSquare,
+        effect: "none"
     },
     {
         x: squareSize.width * 0,
         y: squareSize.height * 0,
         image: firstSquare,
+        effect: "endGame"
     }
 ]
 export {

@@ -1,3 +1,4 @@
+import { squares } from "@/config/squares";
 import styles from "./dice.module.css";
 type DiceProps = {
     rolling: boolean;
@@ -7,6 +8,7 @@ type DiceProps = {
     turn: number;
     setTurn: (turn: number) => void;
     setPlayers: (players: {
+        name: string;
         color: string;
         position: number;
         inConfession: boolean;
@@ -14,6 +16,7 @@ type DiceProps = {
         verified: boolean;
     }[]) => void;
     players: {
+        name: string;
         color: string;
         position: number;
         inConfession: boolean;
@@ -54,7 +57,7 @@ export default function Dice({ rolling, setRolling, diceState, setDiceState, tur
             }
             const playersUpdated = players.map((player, index) => {
                 if (index === turn){
-                    player.position += newDiceValue;
+                    player.position + newDiceValue > squares.length - 1 ? player.position = squares.length - 1 : player.position += newDiceValue;
                     player.verified = false;
                 }
                 return player;

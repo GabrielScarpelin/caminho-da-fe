@@ -1,0 +1,36 @@
+.title {
+    font-size: 6rem;
+    display: inline;
+    background: -webkit-linear-gradient(0deg ,#8B3A37, #DA633F, #FDD767);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.coverTitle {
+    padding-inline: 40px;
+    background-color: #141E46;
+    display: inline-block;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.selectTitle {
+    font-size: 3rem;
+    display: inline;
+    background: -webkit-linear-gradient(0deg ,#8B3A37, #DA633F, #FDD767);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.buttonArea {
+    background-color: transparent;
+    border: none;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+.button:active {
+    transform: translateY(4px);
+}

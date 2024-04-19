@@ -1,0 +1,15 @@
+.title {
+    font-size: 5rem;
+    background: linear-gradient(-90deg ,#FDD767, #DA633F, #8B3A37);
+    background-clip: text;
+    -webkit-background-clip: text;
+    display: flex;
+    justify-content: center;
+    -webkit-text-fill-color: transparent;
+  }
+.podioText {
+    position: absolute;
+    font-size: 60px;
+    color: #903D37;
+
+}
