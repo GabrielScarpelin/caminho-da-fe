@@ -10,8 +10,8 @@ import Link from "next/link";
 
 export default function Home() {
   const [dimensions, setDimensions] = useState({ 
-    height: NaN,
-    width: NaN
+    height: 720,
+    width: 1280
   });
   useEffect(()=>{
     setDimensions({
