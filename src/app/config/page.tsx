@@ -22,8 +22,8 @@ export default function ConfigPage(){
         verified: boolean;
     }[]>(new Array(maxPlayers).fill({name: null, color: null, position: 0, inConfession: false, inCommunion: false, verified: false}));
     const [dimensions, setDimensions] = useState({ 
-        height: window.innerHeight,
-        width: window.innerWidth
+        height: NaN,
+        width: NaN
       });
       useEffect(()=>{
         setDimensions({
